@@ -1,0 +1,26 @@
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import About from './components/About'
+import Blog from './components/Blog'
+import BlogPost from './components/BlogPost'
+import Footer from './components/Footer'
+
+function App() {
+    return (
+        <div className="app">
+            <Navbar />
+            <main>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/google-ai-agent-runbook" element={<BlogPost />} />
+                </Routes>
+            </main>
+            <Footer />
+        </div>
+    )
+}
+
+export default App
