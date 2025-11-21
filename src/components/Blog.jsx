@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import runbookImage from '../assets/ai_agent_runbook_cover.png';
+import deployImage from '../assets/deploy_react_github_pages.png';
 
 const BlogPostCard = ({ image, title, excerpt, author, slug }) => (
     <Link to={`/blog/${slug}`} className="blog-card" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -21,6 +22,17 @@ const BlogPostCard = ({ image, title, excerpt, author, slug }) => (
 
 const Blog = () => {
     const posts = [
+        {
+            id: 0,
+            slug: 'deploy-react-to-github-pages',
+            image: deployImage,
+            title: "How to Deploy React to GitHub Pages",
+            excerpt: "A step-by-step guide to deploying your Vite-based React application to GitHub Pages, covering both user and project sites.",
+            author: "Yuxiang",
+            date: "Nov 21, 2025",
+            views: "156",
+            likes: 42
+        },
         {
             id: 1,
             slug: 'google-ai-agent-runbook',

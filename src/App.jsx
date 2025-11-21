@@ -4,6 +4,7 @@ import Home from './components/Home'
 import About from './components/About'
 import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
+import DeployReactToGitHubPages from './components/DeployReactToGitHubPages'
 import Footer from './components/Footer'
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/google-ai-agent-runbook" element={<BlogPost />} />
+                    <Route path="/blog/deploy-react-to-github-pages" element={<DeployReactToGitHubPages />} />
                 </Routes>
             </main>
             <Footer />
