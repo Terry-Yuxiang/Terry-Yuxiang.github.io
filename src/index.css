@@ -1,26 +1,40 @@
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    /* Default Dark Theme Variables */
+    --bg-color: #242424;
+    --text-color: rgba(255, 255, 255, 0.87);
+    --primary-color: #646cff;
+    --primary-hover: #535bf2;
+    --nav-bg: #1a1a1a;
+    --card-bg: #1a1a1a;
+    --card-border: #333;
+    --code-bg: #0d0d0d;
+    --code-header-bg: #1a1a1a;
+    --code-text: #e6e6e6;
+    --secondary-text: #888;
+    --section-bg: #1a1a1a;
+    --hero-bg: #ffffff;
+    /* Hero image background might need to stay white if image has white bg, or transparent */
+    --hero-text: #333;
+    --work-bg: #f9f9f9;
+    /* Work section background */
 }
 
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-}
-
-a:hover {
-    color: #535bf2;
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #213547;
+    --primary-color: #646cff;
+    --primary-hover: #747bff;
+    --nav-bg: #f9f9f9;
+    --card-bg: #ffffff;
+    --card-border: #eee;
+    --code-bg: #f4f4f4;
+    --code-header-bg: #e0e0e0;
+    --code-text: #333;
+    --secondary-text: #666;
+    --section-bg: #ffffff;
+    --hero-bg: #ffffff;
+    --hero-text: #333;
+    --work-bg: #f9f9f9;
 }
 
 body {
@@ -28,51 +42,9 @@ body {
     min-width: 320px;
     min-height: 100vh;
     width: 100%;
-}
-
-#root {
-    width: 100%;
-}
-
-h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
-}
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
-
-button:hover {
-    border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-
-    a:hover {
-        color: #747bff;
-    }
-
-    button {
-        background-color: #f9f9f9;
-    }
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 /* Navbar Styles */
@@ -82,7 +54,6 @@ button:focus-visible {
     align-items: center;
     padding: 1.5rem 4rem;
     background-color: #1a1a1a;
-    /* Dark background matching header */
     color: white;
     position: sticky;
     top: 0;
@@ -121,7 +92,7 @@ button:focus-visible {
 }
 
 .nav-links a:hover {
-    color: white;
+    color: var(--primary-color);
 }
 
 .social-links {
@@ -300,8 +271,8 @@ button:focus-visible {
 
 /* Footer Styles */
 .footer {
-    background-color: #1a1a1a;
-    color: white;
+    background-color: var(--nav-bg);
+    color: var(--text-color);
     padding: 4rem 2rem;
     text-align: center;
 }
@@ -359,11 +330,11 @@ button:focus-visible {
 .blog-header h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: var(--text-color);
 }
 
 .blog-header p {
-    color: #666;
+    color: var(--secondary-text);
     font-size: 1.2rem;
 }
 
@@ -374,8 +345,8 @@ button:focus-visible {
 }
 
 .blog-card {
-    background: white;
-    border: 1px solid #eee;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -416,7 +387,7 @@ button:focus-visible {
     align-items: center;
     margin-bottom: 1rem;
     font-size: 0.9rem;
-    color: #666;
+    color: var(--secondary-text);
 }
 
 .blog-author-icon {
@@ -435,7 +406,7 @@ button:focus-visible {
 
 .blog-author-name {
     font-weight: 500;
-    color: #333;
+    color: var(--text-color);
 }
 
 .blog-more-options {
@@ -447,13 +418,13 @@ button:focus-visible {
     font-size: 1.2rem;
     margin: 0 0 1rem;
     line-height: 1.4;
-    color: #333;
+    color: var(--text-color);
     font-weight: 700;
 }
 
 .blog-card p {
     font-size: 0.95rem;
-    color: #666;
+    color: var(--secondary-text);
     line-height: 1.6;
     margin: 0 0 1.5rem;
     flex: 1;

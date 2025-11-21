@@ -1,5 +1,6 @@
 import React from 'react';
 import deployImage from '../assets/deploy_react_github_pages.png';
+import CodeBlock from './CodeBlock';
 
 const DeployReactToGitHubPages = () => {
     return (
@@ -7,7 +8,7 @@ const DeployReactToGitHubPages = () => {
             <img src={deployImage} alt="Deploy React to GitHub Pages" style={{ width: '100%', borderRadius: '8px', marginBottom: '2rem' }} />
             <h1 style={{ fontSize: '3rem', marginBottom: '2rem', textAlign: 'left' }}>How to Deploy a React Project to GitHub Pages</h1>
 
-            <div style={{ textAlign: 'left', lineHeight: '1.6', fontSize: '1.1rem', color: '#333' }}>
+            <div style={{ textAlign: 'left', lineHeight: '1.6', fontSize: '1.1rem' }}>
                 <p style={{ marginBottom: '1.5rem' }}>
                     Deploying a React application to GitHub Pages is a great way to host your portfolio or personal projects for free. This guide will walk you through the steps to deploy your Vite-based React app.
                 </p>
@@ -21,41 +22,51 @@ const DeployReactToGitHubPages = () => {
                 <p style={{ marginBottom: '1rem' }}>
                     Set the <code>base</code> property to <code>'/'</code>.
                 </p>
-                <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '5px', overflowX: 'auto', marginBottom: '1.5rem' }}>
-                    <code>{`import { defineConfig } from 'vite'
+
+                <CodeBlock
+                    filename="vite.config.js"
+                    code={`import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: '/'
-})`}</code>
-                </pre>
+})`}
+                />
 
                 <h3 style={{ fontSize: '1.5rem', marginTop: '1.5rem', marginBottom: '0.5rem' }}>2. Configure <code>package.json</code></h3>
                 <p style={{ marginBottom: '1rem' }}>
                     Add the <code>homepage</code> field and update your scripts.
                 </p>
-                <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '5px', overflowX: 'auto', marginBottom: '1.5rem' }}>
-                    <code>{`// Add this line
-"homepage": "https://terry-yuxiang.github.io",
 
-// Update scripts
-"scripts": {
-  // ... other scripts
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d dist"
-}`}</code>
-                </pre>
+                <CodeBlock
+                    filename="package.json"
+                    code={`{
+  // ...
+  "homepage": "https://terry-yuxiang.github.io",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  }
+}`}
+                />
 
                 <h3 style={{ fontSize: '1.5rem', marginTop: '1.5rem', marginBottom: '0.5rem' }}>3. Install <code>gh-pages</code> and Deploy</h3>
                 <p style={{ marginBottom: '1rem' }}>
                     Run the following commands in your terminal:
                 </p>
-                <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '5px', overflowX: 'auto', marginBottom: '1.5rem' }}>
-                    <code>{`npm install gh-pages --save-dev
-npm run deploy`}</code>
-                </pre>
+
+                <CodeBlock
+                    filename="Terminal"
+                    code={`npm install gh-pages --save-dev
+npm run deploy`}
+                />
+
                 <p style={{ marginBottom: '1rem' }}>
                     After running <code>npm run deploy</code>, push your code to the repository.
                 </p>
@@ -85,12 +96,14 @@ npm run deploy`}</code>
                 <p style={{ marginBottom: '1rem' }}>
                     Set the <code>base</code> property to your repository name.
                 </p>
-                <pre style={{ background: '#f4f4f4', padding: '1rem', borderRadius: '5px', overflowX: 'auto', marginBottom: '1.5rem' }}>
-                    <code>{`export default defineConfig({
+
+                <CodeBlock
+                    filename="vite.config.js"
+                    code={`export default defineConfig({
   plugins: [react()],
   base: '/[repository_name]/' // e.g. '/my-project/'
-})`}</code>
-                </pre>
+})`}
+                />
             </div>
         </section>
     );

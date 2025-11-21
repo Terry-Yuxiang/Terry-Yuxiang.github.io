@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Twitter, Linkedin, Facebook, Instagram } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
     return (
@@ -24,6 +25,7 @@ const Navbar = () => {
                 <a href="https://www.linkedin.com/in/yuxiangf/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
                 <a href="#" aria-label="Facebook"><Facebook size={20} /></a>
                 <a href="#" aria-label="Instagram"><Instagram size={20} /></a>
+                <ThemeToggle />
             </div>
         </nav>
     );
