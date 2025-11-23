@@ -98,15 +98,22 @@ body {
 .social-links {
     display: flex;
     gap: 1rem;
+    align-items: center;
 }
 
 .social-links a {
     color: white;
     transition: opacity 0.3s;
+    display: flex;
+    align-items: center;
 }
 
 .social-links a:hover {
     opacity: 0.8;
+}
+
+.theme-toggle {
+    margin-left: 1rem;
 }
 
 /* Hero Styles */
@@ -271,8 +278,8 @@ body {
 
 /* Footer Styles */
 .footer {
-    background-color: var(--nav-bg);
-    color: var(--text-color);
+    background-color: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87);
     padding: 4rem 2rem;
     text-align: center;
 }
@@ -495,4 +502,23 @@ body {
 h1 {
     font-family: 'Inter', sans-serif;
     /* Ensure font is loaded */
+}
+
+/* Inline Code Styles */
+code {
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    background-color: var(--code-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+/* Reset for code blocks to avoid double styling */
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+    font-size: inherit;
 }
