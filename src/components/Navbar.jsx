@@ -14,8 +14,9 @@ const Navbar = () => {
 
             <ul className="nav-links">
                 <li><Link to="/about">about</Link></li>
-                <li><a href="/#book">book</a></li>
                 <li><a href="/#portfolio">portfolio</a></li>
+                <li><Link to="/skiing">ski</Link></li>
+                <li><a href="/#book">book</a></li>
                 <li><Link to="/blog">blog</Link></li>
                 <li><a href="/#contact">contact</a></li>
             </ul>
