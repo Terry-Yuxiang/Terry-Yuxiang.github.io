@@ -5,6 +5,7 @@ import skiHeroImage from '../assets/hero-image-ski.png';
 const Skiing = () => {
     const [view, setView] = useState('selection'); // 'selection', 'log', 'videos'
     const [expandedCollections, setExpandedCollections] = useState({ 0: true, 1: true });
+    const [playingVideo, setPlayingVideo] = useState(null);
 
     const toggleCollection = (index) => {
         setExpandedCollections(prev => ({
@@ -32,10 +33,11 @@ const Skiing = () => {
                 {
                     id: 'local-1',
                     title: 'One Foot Backside Slipping',
-                    thumbnail: 'https://placehold.co/600x400/1a1a1a/ffffff?text=Video+Coming+Soon', // Placeholder
-                    url: '#',
-                    type: 'external',
+                    videoId: 'SXDZi9oVy5Q',
+                    type: 'youtube',
                     duration: '0:30', // Estimated
+                    aspectRatio: '9/19.5', // Adjusted for modern phone screens
+                    thumbnail: 'https://img.youtube.com/vi/SXDZi9oVy5Q/maxresdefault.jpg' // Added thumbnail for YouTube video
                 }
             ]
         },
@@ -362,7 +364,8 @@ const Skiing = () => {
                                     border: '1px solid var(--card-border)',
                                     transition: 'transform 0.3s, box-shadow 0.3s',
                                     display: 'flex',
-                                    flexDirection: 'column'
+                                    flexDirection: 'column',
+                                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                                 }}>
                                     {video.type === 'local' ? (
                                         <div className="video-player-container" style={{ background: '#000', width: '100%', aspectRatio: video.aspectRatio || '16/9' }}>
@@ -374,11 +377,73 @@ const Skiing = () => {
                                                 Your browser does not support the video tag.
                                             </video>
                                         </div>
+                                    ) : video.type === 'youtube' ? (
+                                        <div className="video-player-container" style={{
+                                            background: '#000',
+                                            width: '100%',
+                                            aspectRatio: video.aspectRatio || '16/9',
+                                            position: 'relative',
+                                            cursor: playingVideo === video.id ? 'default' : 'pointer'
+                                        }} onClick={() => setPlayingVideo(video.id)}>
+                                            {playingVideo === video.id ? (
+                                                <iframe
+                                                    width="100%"
+                                                    height="100%"
+                                                    src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&modestbranding=1&rel=0&controls=1`}
+                                                    title={video.title}
+                                                    frameBorder="0"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                    style={{ border: 'none' }}
+                                                ></iframe>
+                                            ) : (
+                                                <>
+                                                    <img
+                                                        src={video.thumbnail}
+                                                        alt={video.title}
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            objectFit: 'cover',
+                                                            opacity: 0.9,
+                                                            transition: 'opacity 0.3s'
+                                                        }}
+                                                    />
+                                                    <div className="play-overlay" style={{
+                                                        position: 'absolute',
+                                                        top: 0,
+                                                        left: 0,
+                                                        right: 0,
+                                                        bottom: 0,
+                                                        background: 'rgba(0,0,0,0.2)',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        transition: 'background 0.3s'
+                                                    }}>
+                                                        <div style={{
+                                                            width: '60px',
+                                                            height: '60px',
+                                                            borderRadius: '50%',
+                                                            background: 'rgba(255, 255, 255, 0.2)',
+                                                            backdropFilter: 'blur(4px)',
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            justifyContent: 'center',
+                                                            border: '1px solid rgba(255, 255, 255, 0.4)'
+                                                        }}>
+                                                            <PlayCircle size={32} color="white" fill="rgba(255,255,255,0.2)" />
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
                                     ) : (
                                         <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
                                             <div className="video-thumbnail" style={{
                                                 position: 'relative',
-                                                height: '180px',
+                                                height: video.aspectRatio ? 'auto' : '180px',
+                                                aspectRatio: video.aspectRatio,
                                                 backgroundColor: '#000',
                                                 overflow: 'hidden'
                                             }}>
@@ -410,15 +475,15 @@ const Skiing = () => {
 
                                     <div className="video-info" style={{ padding: '1.5rem', flex: 1 }}>
                                         <h3 style={{ margin: '0 0 0.5rem', fontSize: '1.1rem', color: 'var(--text-color)', lineHeight: '1.4' }}>
-                                            {video.type === 'external' ? (
-                                                <a href={video.url} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{video.title}</a>
+                                            {video.type === 'external' || video.type === 'youtube' ? (
+                                                <a href={video.url || `https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>{video.title}</a>
                                             ) : (
                                                 video.title
                                             )}
                                         </h3>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--secondary-text)', fontSize: '0.85rem' }}>
                                             <Video size={14} />
-                                            <span>{video.type === 'local' ? 'My Recording' : 'Video Resource'}</span>
+                                            <span>{video.type === 'local' ? 'My Recording' : video.type === 'youtube' ? 'YouTube Video' : 'Video Resource'}</span>
                                         </div>
                                     </div>
                                 </div>
