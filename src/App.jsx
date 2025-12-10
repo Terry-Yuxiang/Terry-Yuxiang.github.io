@@ -6,8 +6,8 @@ import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import DeployReactToGitHubPages from './components/DeployReactToGitHubPages'
 import Footer from './components/Footer'
-
 import Skiing from './components/Skiing'
+import Contact from './components/Contact'
 
 function App() {
     return (
@@ -21,6 +21,7 @@ function App() {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/google-ai-agent-runbook" element={<BlogPost />} />
                     <Route path="/blog/deploy-react-to-github-pages" element={<DeployReactToGitHubPages />} />
+                    <Route path="/contact" element={<Contact />} />
                 </Routes>
             </main>
             <Footer />

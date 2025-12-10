@@ -18,7 +18,7 @@ const Navbar = () => {
                 <li><Link to="/skiing">ski</Link></li>
                 <li><a href="/#book">book</a></li>
                 <li><Link to="/blog">blog</Link></li>
-                <li><a href="/#contact">contact</a></li>
+                <li><Link to="/contact">contact</Link></li>
             </ul>
 
             <div className="social-links">
