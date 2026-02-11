@@ -114,29 +114,37 @@ const About = () => {
                         <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-white/5">
                             <div className="flex justify-between items-start mb-2">
                                 <div>
-                                    <h3 className="text-lg font-bold text-white">University of Southern California</h3>
+                                    <h3 className="text-lg font-bold text-white">
+                                        <a href="https://www.usc.edu/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                            University of Southern California
+                                        </a>
+                                    </h3>
                                     <div className="text-blue-400">Master of Science in Computer Science</div>
                                 </div>
                                 <div className="text-sm text-[#86868b] font-mono text-right">
                                     <div>Los Angeles, CA</div>
-                                    <div>Dec 2024</div>
+                                    <div>Aug 2022 - Dec 2024</div>
                                 </div>
                             </div>
-                            <div className="text-sm text-[#a1a1aa]">GPA: 3.75/4.00</div>
+                            <div className="text-sm text-[#a1a1aa]">GPA: 3.96/4.0</div>
                         </div>
 
                         <div className="bg-[#1c1c1e] p-6 rounded-2xl border border-white/5">
                             <div className="flex justify-between items-start mb-2">
                                 <div>
-                                    <h3 className="text-lg font-bold text-white">Central South University</h3>
-                                    <div className="text-blue-400">Bachelor of Engineering in Software Engineering</div>
+                                    <h3 className="text-lg font-bold text-white">
+                                        <a href="https://en.csu.edu.cn/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                                            Central South University
+                                        </a>
+                                    </h3>
+                                    <div className="text-blue-400">Bachelor of Engineering</div>
                                 </div>
                                 <div className="text-sm text-[#86868b] font-mono text-right">
                                     <div>China</div>
-                                    <div>June 2022</div>
+                                    <div>Sep 2018 - June 2022</div>
                                 </div>
                             </div>
-                            <div className="text-sm text-[#a1a1aa]">GPA: 3.51/4.00 (Major GPA 3.7/4.0)</div>
+                            <div className="text-sm text-[#a1a1aa]">GPA: 3.57/4.0</div>
                         </div>
                     </div>
                 </section>
