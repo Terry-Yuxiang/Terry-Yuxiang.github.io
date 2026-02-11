@@ -43,7 +43,7 @@ const Navbar = () => {
                     {isHome && (
                         <>
                             <a href="#stack" className="hover:text-white transition-colors cursor-pointer">Stack</a>
-                            <a href="#work" className="hover:text-white transition-colors cursor-pointer">Work</a>
+                            <a href="#projects" className="hover:text-white transition-colors cursor-pointer">Projects</a>
                         </>
                     )}
                 </div>
@@ -92,7 +92,7 @@ const LandingPage = () => {
             </section>
 
             {/* --- Bento Grid (Stack) --- */}
-            <section id="stack" className="mb-40">
+            <section id="stack" className="mb-40 scroll-mt-32">
                 <motion.h2
                     {...itemSlideUp}
                     className="text-xs font-bold tracking-[0.4em] text-[#86868b] uppercase mb-10"
@@ -163,11 +163,11 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            {/* --- Work Section --- */}
-            <section id="work" className="mb-40">
+            {/* --- Projects Section --- */}
+            <section id="projects" className="mb-40 scroll-mt-32">
                 <div className="flex justify-between items-end mb-12">
                     <div>
-                        <motion.h2 {...itemSlideUp} className="text-xs font-bold tracking-[0.4em] text-[#86868b] uppercase mb-4">Selected Work</motion.h2>
+                        <motion.h2 {...itemSlideUp} className="text-xs font-bold tracking-[0.4em] text-[#86868b] uppercase mb-4">Selected Projects</motion.h2>
                         <motion.h3 {...itemSlideUp} className="text-4xl font-bold tracking-tight">Featured Projects.</motion.h3>
                     </div>
                 </div>
