@@ -18,9 +18,6 @@ import {
 // Import Legacy Components
 import Skiing from './components/Skiing';
 import About from './components/About';
-import Blog from './components/Blog'; // Assuming this exists or using placeholder
-// import WorkSection from './components/WorkSection'; // Deprecated
-
 
 import { resumeData } from './data/resume';
 
@@ -44,6 +41,8 @@ const Navbar = () => {
                         <>
                             <a href="#stack" className="hover:text-white transition-colors cursor-pointer">Stack</a>
                             <a href="#projects" className="hover:text-white transition-colors cursor-pointer">Projects</a>
+                            <a href="/about" className="hover:text-white transition-colors cursor-pointer">ABOUT</a>
+                            <a href="https://fyxai.github.io" className="hover:text-white transition-colors cursor-pointer">AI_BOT</a>
                         </>
                     )}
                 </div>
@@ -223,8 +222,6 @@ const App = () => {
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/skiing" element={<Skiing />} />
                 <Route path="/about" element={<About />} />
-                {/* Placeholder for Blog until we migrate it properly */}
-                <Route path="/blog" element={<div className="pt-32 text-center"><h1>Blog Coming Soon</h1></div>} />
                 {/* Add redirects or other routes as needed */}
             </Routes>
 
