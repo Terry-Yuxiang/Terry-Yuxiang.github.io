@@ -227,8 +227,6 @@ const ProjectCard = ({ project, index }) => {
 
 // ─── Landing Page ───────────────────────────────────────────────────────────
 const LandingPage = () => {
-  const statsRef = useRef(null);
-  const statsInView = useInView(statsRef, { once: true });
 
   const STACK_GROUPS = [
     {
@@ -349,34 +347,6 @@ const LandingPage = () => {
               About me →
             </Link>
           </p>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          ref={statsRef}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.8 }}
-          style={{ display: 'flex', gap: 'clamp(2rem, 5vw, 4rem)', marginTop: 'clamp(2.5rem, 5vw, 4rem)', flexWrap: 'wrap' }}
-        >
-          {[
-            { num: '3+', label: 'Years Experience' },
-            { num: '7+', label: 'Projects Built' },
-            { num: '3.96', label: 'GPA / USC' },
-          ].map(({ num, label }) => (
-            <div key={label}>
-              <div style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
-                fontWeight: 600, lineHeight: 1, color: 'var(--white)',
-              }}>{num}</div>
-              <div style={{
-                fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
-                letterSpacing: '0.2em', color: 'var(--muted)',
-                textTransform: 'uppercase', marginTop: '0.3rem',
-              }}>{label}</div>
-            </div>
-          ))}
         </motion.div>
 
         {/* Scroll indicator */}
