@@ -1,10 +1,77 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
 import Skiing from './components/Skiing';
 import About from './components/About';
 import { resumeData } from './data/resume';
+
+// ─── 3D Tilt Hook ───────────────────────────────────────────────────────────
+const use3DTilt = (maxTilt = 10) => {
+  const ref = useRef(null);
+  const rafRef = useRef(null);
+  const cur = useRef({ x: 0, y: 0 });
+  const target = useRef({ x: 0, y: 0 });
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const onMove = (e) => {
+      const rect = el.getBoundingClientRect();
+      const nx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+      const ny = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+      target.current = { x: -ny * maxTilt, y: nx * maxTilt };
+    };
+    const onLeave = () => { target.current = { x: 0, y: 0 }; };
+
+    const tick = () => {
+      const LERP = 0.08;
+      cur.current.x += (target.current.x - cur.current.x) * LERP;
+      cur.current.y += (target.current.y - cur.current.y) * LERP;
+      setTilt({ x: cur.current.x, y: cur.current.y });
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    el.addEventListener('mousemove', onMove);
+    el.addEventListener('mouseleave', onLeave);
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      el.removeEventListener('mousemove', onMove);
+      el.removeEventListener('mouseleave', onLeave);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [maxTilt]);
+
+  return { ref, tilt };
+};
+
+// ─── Name3D Component ────────────────────────────────────────────────────────
+const Name3D = ({ children, tilt, style = {} }) => {
+  const { x, y } = tilt;
+  // Extrusion shadow: layers stacked in opposite direction of tilt
+  const layers = 8;
+  const sx = -y * 0.45;
+  const sy = x * 0.45;
+  const shadows = Array.from({ length: layers }, (_, i) => {
+    const d = i + 1;
+    const alpha = 0.18 - i * 0.018;
+    return `${sx * d}px ${sy * d}px 0 rgba(201,168,76,${alpha})`;
+  });
+  shadows.push(`${sx * layers}px ${sy * layers}px 22px rgba(0,0,0,0.45)`);
+
+  return (
+    <span style={{
+      display: 'inline-block',
+      textShadow: shadows.join(', '),
+      willChange: 'text-shadow',
+      ...style,
+    }}>
+      {children}
+    </span>
+  );
+};
 
 const SKILLS = [
   'Python', 'Java', 'Go', 'TypeScript', 'C++', 'SQL',
@@ -227,6 +294,7 @@ const ProjectCard = ({ project, index }) => {
 
 // ─── Landing Page ───────────────────────────────────────────────────────────
 const LandingPage = () => {
+  const { ref: nameRef, tilt } = use3DTilt(10);
 
   const STACK_GROUPS = [
     {
@@ -291,42 +359,61 @@ const LandingPage = () => {
           }}>SDET @ TikTok — San Jose, CA</span>
         </motion.div>
 
-        {/* Name — line 1 */}
-        <div style={{ overflow: 'hidden' }}>
-          <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.28, duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h1 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(4.5rem, 13vw, 15rem)',
-              fontWeight: 300, lineHeight: 0.88,
-              margin: 0, letterSpacing: '-0.025em',
-              color: 'var(--white)',
-            }}>Yuxiang</h1>
-          </motion.div>
-        </div>
+        {/* Name — 3D tilt wrapper */}
+        <div
+          ref={nameRef}
+          style={{
+            perspective: '900px',
+            perspectiveOrigin: '50% 50%',
+            cursor: 'default',
+            userSelect: 'none',
+          }}
+        >
+          <div style={{
+            transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+            transformStyle: 'preserve-3d',
+            willChange: 'transform',
+          }}>
+            {/* Line 1 */}
+            <div style={{ overflow: 'hidden' }}>
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.28, duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <h1 style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(4.5rem, 13vw, 15rem)',
+                  fontWeight: 300, lineHeight: 0.88,
+                  margin: 0, letterSpacing: '-0.025em',
+                  color: 'var(--white)',
+                }}>
+                  <Name3D tilt={tilt}>Yuxiang</Name3D>
+                </h1>
+              </motion.div>
+            </div>
 
-        {/* Name — line 2 */}
-        <div style={{ overflow: 'hidden', marginLeft: 'clamp(0.5rem, 2vw, 2rem)' }}>
-          <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ delay: 0.42, duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-            style={{ display: 'flex', alignItems: 'baseline', gap: 'clamp(0.5rem, 1.5vw, 1.5rem)', flexWrap: 'wrap' }}
-          >
-            <span style={{
-              fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 300,
-              fontSize: 'clamp(2.5rem, 7vw, 8rem)',
-              color: 'var(--gold)', letterSpacing: '-0.01em',
-            }}>(Terry)</span>
-            <span style={{
-              fontFamily: 'var(--font-display)', fontWeight: 700,
-              fontSize: 'clamp(4.5rem, 13vw, 15rem)', lineHeight: 0.88,
-              color: 'var(--white)', letterSpacing: '-0.025em',
-            }}>Fan.</span>
-          </motion.div>
+            {/* Line 2 */}
+            <div style={{ overflow: 'hidden', marginLeft: 'clamp(0.5rem, 2vw, 2rem)' }}>
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.42, duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+                style={{ display: 'flex', alignItems: 'baseline', gap: 'clamp(0.5rem, 1.5vw, 1.5rem)', flexWrap: 'wrap' }}
+              >
+                <Name3D tilt={tilt} style={{
+                  fontFamily: 'var(--font-display)', fontStyle: 'italic', fontWeight: 300,
+                  fontSize: 'clamp(2.5rem, 7vw, 8rem)',
+                  color: 'var(--gold)', letterSpacing: '-0.01em',
+                }}>(Terry)</Name3D>
+                <Name3D tilt={tilt} style={{
+                  fontFamily: 'var(--font-display)', fontWeight: 700,
+                  fontSize: 'clamp(4.5rem, 13vw, 15rem)', lineHeight: 0.88,
+                  color: 'var(--white)', letterSpacing: '-0.025em',
+                }}>Fan.</Name3D>
+              </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Tagline */}
